@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>小程序 | appID准备</title>
+  <meta name="description" content="§ 小程序时代小程序的优势，网上各种文章新闻铺天盖地，这里不再复述。  除了我们常见的功能外（音频、视频、图片、画布等），小程序可以做到如下但不限于这些事情：">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="/ch1-1">
+</head>
+
+
+<body>
+    <header class="site-header-box">
+    <div class="site-header">
+        <div class="wrapper">
+            <a class="site-title" href="/">微信小程序教程</a>
+            <!-- <a class="site-ikcamp">iKcamp</a> -->
+            <div id="container" class="canvasbox">
+                <canvas id="waterfall" width="100" height="140"></canvas>
+            </div>
+        </div>
+    </div>
+</header>
+    <div class="page-content">
+        <div class="wrapper markdown-body">
+            <article class="post">
+
+  <header class="post-header">
+    <p class="post-title" itemprop="name headline">第一章：小程序初级入门教程</p>
+    <p class="post-meta">appID准备</p>
+  </header>
+
+  <div class="post-content markdown-body" itemprop="articleBody">
+    <h2 id="asect-a"><a>§ 小程序时代</a></h2>
+<p>小程序的优势，网上各种文章新闻铺天盖地，这里不再复述。  <br />
+除了我们常见的功能外（音频、视频、图片、画布等），小程序可以做到如下但不限于这些事情：</p>
+
+<ul>
+  <li>网络：网络请求、上传下载、 <code class="highlighter-rouge">WebSocket</code>（比如聊天室）</li>
+  <li>数据：数据缓存能力</li>
+  <li>位置：获取位置、查看位置、地图调用</li>
+  <li>设备：系统信息、网络状态、加速度计（重力感应）、罗盘、拨打电话、扫码、蓝牙、iBeacon、屏幕亮度、 <code class="highlighter-rouge">振动</code> 、手机联系人（你的电话本）</li>
+  <li>界面：可以做到很多与微信一样效果的样式，比如设置导航条、导航、动画、绘图等等</li>
+  <li>开放接口：登录、授权、用户信息、<code class="highlighter-rouge">微信支付</code> 、微信客服、转发、二维码功能、 <code class="highlighter-rouge">微信运动</code> 、收货地址、卡券、设置</li>
+  <li>文件操作能力、数据统计分析（pv、uv等）   <br />
+<br /></li>
+</ul>
+
+<h2 id="asect-a-1"><a>§ 小程序起手</a></h2>
+<p>之前小程序强制要求以公司机构申请 <code class="highlighter-rouge">appID</code> 方可开发和上线小程序项目，导致小程序遇冷。不过还好，现在小程序基本上放开了这块的限制。  <br />
+如果你想自己动手玩下小程序，找找感觉，没有 <code class="highlighter-rouge">appID</code> 也可以做到。如果想要达到上线的效果，还是需要申请 <code class="highlighter-rouge">appID</code> 并进行项目的提交审核。  <br />
+<br /></p>
+
+<h3 id="appid-">这里稍微提下 <code class="highlighter-rouge">appID</code> 的申请过程</h3>
+<ol>
+  <li>打开<a href="https://mp.weixin.qq.com">小程序注册地址</a>，浏览 3 秒后，请点击页面右上角 <code class="highlighter-rouge">立即注册</code> 进入下一个页面并选择 <code class="highlighter-rouge">小程序</code>，如下：</li>
+</ol>
+
+<div align="center">
+  <image src="./images/WechatIMG0.jpeg" width="400" />
+</div>
+<div align="center">
+  <image src="./images/WechatIMG1.jpeg" width="400" />
+</div>
+<p><br /></p>
+
+<ol>
+  <li>不用多说了，直接填写信息吧。需要注意的是：<em>一个邮箱只能注册一个小程序</em> 。另外，多了解下协议内容，避免因一些小问题造成审核不通过。</li>
+</ol>
+
+<div align="center">
+  <image src="./images/WechatIMG2.jpeg" width="600" />
+</div>
+<p><br /></p>
+
+<ol>
+  <li>注册成功后，会有个激活链接发送到注册邮箱里面，需要登录邮箱中验证激活。</li>
+</ol>
+
+<div align="center">
+  <image src="./images/WechatIMG3.jpeg" width="400" />
+</div>
+<p><br /></p>
+
+<ol>
+  <li>查收邮件，并点击此处链接验证激活。</li>
+</ol>
+
+<div align="center">
+  <image src="./images/WechatIMG4.jpeg" width="400" />
+</div>
+<p><br /></p>
+
+<ol>
+  <li>点击邮件的链接验证后，正常情况下，会跳转到一个新的页面，如果打开页面后，没有进入到如下页面，可以点击页面 <code class="highlighter-rouge">返回首页</code>，或直接访问地址 <a href="https://mp.weixin.qq.com">https://mp.weixin.qq.com</a></li>
+</ol>
+
+<div align="center">
+  <image src="./images/WechatIMG5.jpeg" width="600" />
+</div>
+<p><br /></p>
+
+<ol>
+  <li>信息登记的主体类型，请根据自己的情况而定，本教程采用最基本的 <code class="highlighter-rouge">个人</code> 类型，并填写下面的真实信息，需要注意的是，<code class="highlighter-rouge">身份证</code> 和 <code class="highlighter-rouge">手机号</code> 最多能绑定 5 个小程序，也就是说，你想要开发第 6 个小程序，就需要换别人的证件信息了。</li>
+</ol>
+
+<div align="center">
+  <image src="./images/WechatIMG6.jpeg" width="600" />
+</div>
+<p><br /></p>
+
+<ol>
+  <li>信息填写后，点击 <code class="highlighter-rouge">继续</code> 进行提交，成功后会弹出如下框，直接 <code class="highlighter-rouge">前往小程序</code></li>
+</ol>
+
+<div align="center">
+  <image src="./images/WechatIMG7.jpeg" width="400" />
+</div>
+<p><br /></p>
+
+<ol>
+  <li>进入小程序后，从左侧菜单导航的 <code class="highlighter-rouge">设置</code> 进入到 <code class="highlighter-rouge">开发设置</code>，或直接在图中所示位置进入 <code class="highlighter-rouge">开发设置</code>，就可以看到小程序的 <code class="highlighter-rouge">appID</code>了。</li>
+</ol>
+
+<div align="center">
+  <image src="./images/WechatIMG8.jpeg" width="600" />
+</div>
+<p><br /></p>
+
+<div align="center">
+  <image src="./images/WechatIMG9.jpeg" width="400" />
+</div>
+<p><br /></p>
+
+<p><a href="/">返回大纲</a></p>
+
+<p><a href="./ch1-2">下一篇：开发工具</a></p>
+
+
+  </div>
+
+</article>
+
+        </div>
+    </div>
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">微信小程序教程</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>微信小程序教程</li>
+          <li><a href="mailto:ikcamp@qq.com">ikcamp@qq.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/ikcamp"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">ikcamp</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/ikcamp"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">ikcamp</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+    <script type="text/javascript">
+        !function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>r||i.x<0?-1:1,i.ya*=i.y>n||i.y<0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y>=x.max/2&&(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n>p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();
+
+    (function() {
+        function canvasTranstion() {
+            var waterfallCanvas = function(c, cw, ch) {
+                var _this = this;
+                this.c = c;
+                this.ctx = c.getContext('2d');
+                this.cw = cw;
+                this.ch = ch;
+
+                this.particles = [];
+                this.particleRate = 6;
+                this.gravity = .15;
+
+
+                this.init = function() {
+                    this.loop();
+                };
+
+                this.reset = function() {
+                    this.ctx.clearRect(0, 0, this.cw, this.ch);
+                    this.particles = [];
+                };
+
+                this.rand = function(rMi, rMa) {
+                    return ~~((Math.random() * (rMa - rMi + 1)) + rMi);
+                };
+
+
+                this.Particle = function() {
+                    var newWidth = _this.rand(1, 20);
+                    var newHeight = _this.rand(1, 45);
+                    this.x = _this.rand(10 + (newWidth / 2), _this.cw - 10 - (newWidth / 2));
+                    this.y = -newHeight;
+                    this.vx = 0;
+                    this.vy = 0;
+                    this.width = newWidth;
+                    this.height = newHeight;
+                    this.hue = _this.rand(200, 220);
+                    this.saturation = _this.rand(30, 60);
+                    this.lightness = _this.rand(30, 60);
+                };
+
+                this.Particle.prototype.update = function(i) {
+                    this.vx += this.vx;
+                    this.vy += _this.gravity;
+                    this.x += this.vx;
+                    this.y += this.vy;
+                };
+
+                this.Particle.prototype.render = function() {
+                    _this.ctx.strokeStyle = 'hsla(' + this.hue + ', ' + this.saturation + '%, ' + this.lightness + '%, .05)';
+                    _this.ctx.beginPath();
+                    _this.ctx.moveTo(this.x, this.y);
+                    _this.ctx.lineTo(this.x, this.y + this.height);
+                    _this.ctx.lineWidth = this.width / 2;
+                    _this.ctx.lineCap = 'round';
+                    _this.ctx.stroke();
+                };
+
+                this.Particle.prototype.renderBubble = function() {
+                    _this.ctx.fillStyle = 'hsla(' + this.hue + ', 40%, 40%, 1)';
+                    _this.ctx.fillStyle = 'hsla(' + this.hue + ', ' + this.saturation + '%, ' + this.lightness + '%, .3)';
+                    _this.ctx.beginPath();
+                    _this.ctx.arc(this.x + this.width / 2, _this.ch - 20 - _this.rand(0, 10), _this.rand(1, 8), 0, Math.PI * 2, false);
+                    _this.ctx.fill();
+                };
+
+                this.createParticles = function() {
+                    var i = this.particleRate;
+                    while (i--) {
+                        this.particles.push(new this.Particle());
+                    }
+                };
+
+                this.removeParticles = function() {
+                    var i = this.particleRate;
+                    while (i--) {
+                        var p = this.particles[i];
+                        if (p.y > _this.ch - 20 - p.height) {
+                            p.renderBubble();
+                            _this.particles.splice(i, 1);
+                        }
+                    }
+                };
+
+                this.updateParticles = function() {
+                    var i = this.particles.length;
+                    while (i--) {
+                        var p = this.particles[i];
+                        p.update(i);
+                    };
+                };
+
+                this.renderParticles = function() {
+                    var i = this.particles.length;
+                    while (i--) {
+                        var p = this.particles[i];
+                        p.render();
+                    };
+                };
+
+                this.clearCanvas = function() {
+                    this.ctx.globalCompositeOperation = 'destination-out';
+                    this.ctx.fillStyle = 'rgba(255,255,255,.06)';
+                    this.ctx.fillRect(0, 0, this.cw, this.ch);
+                    this.ctx.globalCompositeOperation = 'lighter';
+                };
+
+                this.loop = function() {
+                    var loopIt = function() {
+                        requestAnimationFrame(loopIt, _this.c);
+                        _this.clearCanvas();
+                        _this.createParticles();
+                        _this.updateParticles();
+                        _this.renderParticles();
+                        _this.removeParticles();
+                    };
+                    loopIt();
+                };
+
+            };
+
+            var isCanvasSupported = function() {
+                var elem = document.createElement('canvas');
+                return !!(elem.getContext && elem.getContext('2d'));
+            };
+
+            var setupRAF = function() {
+                var lastTime = 0;
+                var vendors = ['ms', 'moz', 'webkit', 'o'];
+                for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+                    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+                };
+
+                if (!window.requestAnimationFrame) {
+                    window.requestAnimationFrame = function(callback, element) {
+                        var currTime = new Date().getTime();
+                        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                        var id = window.setTimeout(function() {
+                            callback(currTime + timeToCall);
+                        }, timeToCall);
+                        lastTime = currTime + timeToCall;
+                        return id;
+                    };
+                };
+
+                if (!window.cancelAnimationFrame) {
+                    window.cancelAnimationFrame = function(id) {
+                        clearTimeout(id);
+                    };
+                };
+            };
+
+            if (isCanvasSupported()) {
+                var c = document.getElementById('waterfall');
+                var cw = c.width = 100;
+                var ch = c.height = 140;
+                var waterfall = new waterfallCanvas(c, cw, ch);
+                setupRAF();
+                waterfall.init();
+            }
+        }
+        canvasTranstion()
+    })()
+    </script>
+</body>
+
+</html>

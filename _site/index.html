@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>小程序 | 微信小程序教程</title>
+  <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="/">
+</head>
+
+
+<body>
+    <header class="site-header-box">
+    <div class="site-header">
+        <div class="wrapper">
+            <a class="site-title" href="/">微信小程序教程</a>
+            <!-- <a class="site-ikcamp">iKcamp</a> -->
+            <div id="container" class="canvasbox">
+                <canvas id="waterfall" width="100" height="140"></canvas>
+            </div>
+        </div>
+    </div>
+</header>
+    <div class="page-content">
+        <div class="wrapper markdown-body">
+            
+  
+  <h2 align="center"> 🇨🇳 微信小程序课程，面向所有具备前端基础知识的同学 🇨🇳 </h2>
+
+<p><br /></p>
+
+<h2 id="asect-a"><a>§ 阅读要求</a></h2>
+<blockquote>
+  <p>读者需要具备但不限于以下技能<br />
+- HTML<br />
+- JavaScript <code class="highlighter-rouge">es6更佳</code><br />
+- CSS</p>
+</blockquote>
+
+<p>一共四部分十五小节，适合七天的训练营。  <br />
+从现在开始，我假装你已经掌握了 <code class="highlighter-rouge">html</code>、 <code class="highlighter-rouge">css</code>以及 <code class="highlighter-rouge">ES6</code>  ☝️</p>
+
+<p><br /></p>
+
+<h2 id="asect-a-1"><a>§ 目标导向</a></h2>
+<blockquote>
+  <p>本教程以实战项目驱动，最终实现一个完整的小程序</p>
+</blockquote>
+
+<p>列表页面：请求接口，并展示列表页面数据</p>
+<div align="center">
+  <img src="./images/list.png" width="320" />
+ </div>
+
+<p><br /></p>
+
+<p>详情页面：以文章id为参数，获取文章详情</p>
+<div align="center">
+  <img src="./images/detail.png" width="320" />
+ </div>
+
+<p><br /></p>
+
+<p>详情页面，点击图片，展示大图</p>
+<div align="center">
+  <img src="./images/showimg.png" width="320" />
+</div>
+
+<p><br /></p>
+
+<h2 id="asect-a-2"><a>§ 教程大纲</a></h2>
+<ul>
+  <li>第一章：小程序初级入门教程
+    <ul>
+      <li><a href="./ch1-1">appID准备</a></li>
+      <li><a href="./ch1-2">工具安装</a></li>
+      <li><a href="./ch1-3">目录说明</a></li>
+      <li><a href="./ch1-4">小试牛刀</a></li>
+      <li><a href="./ch1-5">发布流程</a></li>
+    </ul>
+  </li>
+  <li>第二章：小程序中级实战教程：预备篇
+    <ul>
+      <li><a href="./ch2-1">项目结构设计</a></li>
+      <li><a href="./ch2-2">提取 util 公用方法</a></li>
+      <li><a href="./ch2-3">封装网络请求及 mock 数据</a></li>
+    </ul>
+  </li>
+  <li>第三章：小程序中级实战教程：列表篇
+    <ul>
+      <li><a href="./ch3-1">列表-静态页面制作</a></li>
+      <li><a href="./ch3-2">列表-页面逻辑处理</a></li>
+      <li><a href="./ch3-3">列表-视图与数据关联</a></li>
+      <li><a href="./ch3-4">列表-阅读标识</a></li>
+    </ul>
+  </li>
+  <li>第四章：小程序中级实战教程：详情篇
+    <ul>
+      <li><a href="./ch4-1">详情-页面制作</a></li>
+      <li><a href="./ch4-2">详情-视图渲染</a></li>
+      <li><a href="./ch4-3">详情-功能完善</a></li>
+    </ul>
+  </li>
+  <li>第五章：小程序进阶教程
+    <ul>
+      <li><a href="./ch4-0">待定内容</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="asect-a-3"><a>§ 学习方式</a></h2>
+<p>教程以章节的方式管理，比如学习第三章第一节 <code class="highlighter-rouge">列表-静态页面制作</code> 时候，需要把 <code class="highlighter-rouge">codes/ch3-1</code> 里面的代码取出来，导入到微信开发工具编辑器，然后跟随教程进行实战代码操作。  <br />
+<strong>注意：</strong> <code class="highlighter-rouge">codes/</code> 目录下相对的章节内容，皆是上一节内容操作完成后的结果。比如 <code class="highlighter-rouge">codes/ch3-2</code> 就是上一节课程 <code class="highlighter-rouge">ch3-1</code> 的结果。  </p>
+
+<p><br /></p>
+
+<h2 id="asect-a-4"><a>§ 核心人员</a></h2>
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top">
+        <img width="85" height="85" src="https://github.com/aximario.png?s=85" />
+        <br />
+        <a href="https://github.com/aximario">aximario</a>
+        <p></p>
+        <p></p>
+      </td>
+      <td align="center" valign="top">
+        <img width="85" height="85" src="https://github.com/pavelShen.png?s=85" />
+        <br />
+        <a href="https://github.com/pavelShen">pavelShen</a>
+        <p></p>
+        <p></p>
+      </td>
+      <td align="center" valign="top">
+        <img width="85" height="85" src="https://github.com/pangz1.png?s=85" />
+        <br />
+        <a href="https://github.com/pangz1">pangz1</a>
+        <p></p>
+        <p></p>
+      </td>
+      <td align="center" valign="top">
+        <img width="85" height="85" src="https://github.com/tinyuen.png?s=85" />
+        <br />
+        <a href="https://github.com/tinyuen">tinyuen</a>
+        <p></p>
+        <p></p>
+      </td>
+      <td align="center" valign="top">
+        <img width="85" height="85" src="https://github.com/roeis.png?s=85" />
+        <br />
+        <a href="https://github.com/roeis">roeis</a>
+        <p></p>
+        <p></p>
+      </td>
+      <td align="center" valign="top">
+        <img width="85" height="85" src="https://github.com/sqzhuyi.png?s=85" />
+        <br />
+        <a href="https://github.com/sqzhuyi">sqzhuyi</a>
+        <p></p>
+        <p></p>
+      </td>
+      <td align="center" valign="top">
+        <img width="85" height="85" src="https://github.com/longdiandian9.png?s=85" />
+        <br />
+        <a href="https://github.com/longdiandian9">longdiandian9</a>
+        <p></p>
+        <p></p>
+      </td>
+      <td align="center" valign="top">
+        <img width="85" height="85" src="https://github.com/brucecham.png?s=85" />
+        <br />
+        <a href="https://github.com/brucecham">brucecham</a>
+        <p></p>
+        <p></p>
+      </td>
+     </tr>
+  </tbody>
+</table>
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+
+        </div>
+    </div>
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">微信小程序教程</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>微信小程序教程</li>
+          <li><a href="mailto:ikcamp@qq.com">ikcamp@qq.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/ikcamp"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">ikcamp</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/ikcamp"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">ikcamp</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+    <script type="text/javascript">
+        !function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>r||i.x<0?-1:1,i.ya*=i.y>n||i.y<0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y>=x.max/2&&(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n>p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();
+
+    (function() {
+        function canvasTranstion() {
+            var waterfallCanvas = function(c, cw, ch) {
+                var _this = this;
+                this.c = c;
+                this.ctx = c.getContext('2d');
+                this.cw = cw;
+                this.ch = ch;
+
+                this.particles = [];
+                this.particleRate = 6;
+                this.gravity = .15;
+
+
+                this.init = function() {
+                    this.loop();
+                };
+
+                this.reset = function() {
+                    this.ctx.clearRect(0, 0, this.cw, this.ch);
+                    this.particles = [];
+                };
+
+                this.rand = function(rMi, rMa) {
+                    return ~~((Math.random() * (rMa - rMi + 1)) + rMi);
+                };
+
+
+                this.Particle = function() {
+                    var newWidth = _this.rand(1, 20);
+                    var newHeight = _this.rand(1, 45);
+                    this.x = _this.rand(10 + (newWidth / 2), _this.cw - 10 - (newWidth / 2));
+                    this.y = -newHeight;
+                    this.vx = 0;
+                    this.vy = 0;
+                    this.width = newWidth;
+                    this.height = newHeight;
+                    this.hue = _this.rand(200, 220);
+                    this.saturation = _this.rand(30, 60);
+                    this.lightness = _this.rand(30, 60);
+                };
+
+                this.Particle.prototype.update = function(i) {
+                    this.vx += this.vx;
+                    this.vy += _this.gravity;
+                    this.x += this.vx;
+                    this.y += this.vy;
+                };
+
+                this.Particle.prototype.render = function() {
+                    _this.ctx.strokeStyle = 'hsla(' + this.hue + ', ' + this.saturation + '%, ' + this.lightness + '%, .05)';
+                    _this.ctx.beginPath();
+                    _this.ctx.moveTo(this.x, this.y);
+                    _this.ctx.lineTo(this.x, this.y + this.height);
+                    _this.ctx.lineWidth = this.width / 2;
+                    _this.ctx.lineCap = 'round';
+                    _this.ctx.stroke();
+                };
+
+                this.Particle.prototype.renderBubble = function() {
+                    _this.ctx.fillStyle = 'hsla(' + this.hue + ', 40%, 40%, 1)';
+                    _this.ctx.fillStyle = 'hsla(' + this.hue + ', ' + this.saturation + '%, ' + this.lightness + '%, .3)';
+                    _this.ctx.beginPath();
+                    _this.ctx.arc(this.x + this.width / 2, _this.ch - 20 - _this.rand(0, 10), _this.rand(1, 8), 0, Math.PI * 2, false);
+                    _this.ctx.fill();
+                };
+
+                this.createParticles = function() {
+                    var i = this.particleRate;
+                    while (i--) {
+                        this.particles.push(new this.Particle());
+                    }
+                };
+
+                this.removeParticles = function() {
+                    var i = this.particleRate;
+                    while (i--) {
+                        var p = this.particles[i];
+                        if (p.y > _this.ch - 20 - p.height) {
+                            p.renderBubble();
+                            _this.particles.splice(i, 1);
+                        }
+                    }
+                };
+
+                this.updateParticles = function() {
+                    var i = this.particles.length;
+                    while (i--) {
+                        var p = this.particles[i];
+                        p.update(i);
+                    };
+                };
+
+                this.renderParticles = function() {
+                    var i = this.particles.length;
+                    while (i--) {
+                        var p = this.particles[i];
+                        p.render();
+                    };
+                };
+
+                this.clearCanvas = function() {
+                    this.ctx.globalCompositeOperation = 'destination-out';
+                    this.ctx.fillStyle = 'rgba(255,255,255,.06)';
+                    this.ctx.fillRect(0, 0, this.cw, this.ch);
+                    this.ctx.globalCompositeOperation = 'lighter';
+                };
+
+                this.loop = function() {
+                    var loopIt = function() {
+                        requestAnimationFrame(loopIt, _this.c);
+                        _this.clearCanvas();
+                        _this.createParticles();
+                        _this.updateParticles();
+                        _this.renderParticles();
+                        _this.removeParticles();
+                    };
+                    loopIt();
+                };
+
+            };
+
+            var isCanvasSupported = function() {
+                var elem = document.createElement('canvas');
+                return !!(elem.getContext && elem.getContext('2d'));
+            };
+
+            var setupRAF = function() {
+                var lastTime = 0;
+                var vendors = ['ms', 'moz', 'webkit', 'o'];
+                for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+                    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+                };
+
+                if (!window.requestAnimationFrame) {
+                    window.requestAnimationFrame = function(callback, element) {
+                        var currTime = new Date().getTime();
+                        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                        var id = window.setTimeout(function() {
+                            callback(currTime + timeToCall);
+                        }, timeToCall);
+                        lastTime = currTime + timeToCall;
+                        return id;
+                    };
+                };
+
+                if (!window.cancelAnimationFrame) {
+                    window.cancelAnimationFrame = function(id) {
+                        clearTimeout(id);
+                    };
+                };
+            };
+
+            if (isCanvasSupported()) {
+                var c = document.getElementById('waterfall');
+                var cw = c.width = 100;
+                var ch = c.height = 140;
+                var waterfall = new waterfallCanvas(c, cw, ch);
+                setupRAF();
+                waterfall.init();
+            }
+        }
+        canvasTranstion()
+    })()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>小程序 | 列表 - 开发准备</title>
+  <meta name="description" content="§ 列表 - 开发准备  这一章主要会教大家如何用小程序制作一个可以无限加载的列表。希望大家能通过这个例子掌握制作各种列表的原理。">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="/ch3-1">
+</head>
+
+
+<body>
+    <header class="site-header-box">
+    <div class="site-header">
+        <div class="wrapper">
+            <a class="site-title" href="/">微信小程序教程</a>
+            <!-- <a class="site-ikcamp">iKcamp</a> -->
+            <div id="container" class="canvasbox">
+                <canvas id="waterfall" width="100" height="140"></canvas>
+            </div>
+        </div>
+    </div>
+</header>
+    <div class="page-content">
+        <div class="wrapper markdown-body">
+            <article class="post">
+
+  <header class="post-header">
+    <p class="post-title" itemprop="name headline">第三章：小程序中级实战教程：列表篇</p>
+    <p class="post-meta">列表 - 开发准备</p>
+  </header>
+
+  <div class="post-content markdown-body" itemprop="articleBody">
+    <h2 id="asect----a"><a>§ 列表 - 开发准备</a></h2>
+<blockquote>
+  <p>这一章主要会教大家如何用小程序制作一个可以无限加载的列表。希望大家能通过这个例子掌握制作各种列表的原理。</p>
+</blockquote>
+
+<p><br /></p>
+
+<h3 id="section">无限列表加载的原理</h3>
+<p>其实所谓的无限列表就是将所有的数据分成一页一页的展示给用户看。我们每次只请求一页数据。当我们判断用户阅读完了这一页之后，立马请求下一页的数据，然后渲染出来给用户看，这样在用户看来，就感觉一直有内容可看。</p>
+
+<p>当然，这其中很重要的一点就是，涉及到请求就肯定会有等待，处理好请求时的 <strong>加载状态</strong>，给用户以良好的体验也是非常重要的，否则如果网络状况不佳，而且没有给用户提示程序正在努力加载的话，用户很容易就以为他看完了，或者程序死掉了。</p>
+
+<p><br /></p>
+
+<h3 id="section-1">我们的列表所提供的功能</h3>
+<ol>
+  <li>静默加载</li>
+  <li>标记已读</li>
+  <li>提供分享</li>
+</ol>
+
+<p><br /></p>
+
+<h3 id="api">涉及的核心技术和 API</h3>
+<ol>
+  <li>wx:for 的用法</li>
+  <li>onReachBottom 的用法</li>
+  <li>wx.storage 的用法</li>
+  <li>wx.request 的用法</li>
+  <li>Promise</li>
+  <li>onShareAppMessage 的用法</li>
+</ol>
+
+<p><br /></p>
+
+<p>我们将正式投入开发中，在这之前，我们修改 <code class="highlighter-rouge">app.json</code> 文件，并修改如下：  <br />
+1. 修改 <code class="highlighter-rouge">pages</code> 字段，为小程序增加页面配置<br />
+2. 修改 <code class="highlighter-rouge">window</code> 字段，调整小程序的头部样式，也就是 <code class="highlighter-rouge">navigationBar</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"pages"</span><span class="p">:[</span><span class="w">
+    </span><span class="s2">"pages/index/index"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pages/detail/detail"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"window"</span><span class="p">:{</span><span class="w">
+    </span><span class="nt">"backgroundTextStyle"</span><span class="p">:</span><span class="s2">"light"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"navigationBarBackgroundColor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#4abb3b"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"navigationBarTitleText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"iKcamp英语学习"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"backgroundColor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#f8f8f8"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"navigationBarTextStyle"</span><span class="p">:</span><span class="s2">"white"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"netWorkTimeout"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"request"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"connectSocket"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"uploadFile"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"downloadFile"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"debug"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+<p><br /></p>
+
+<p>现在准备工作已经全部到位，我们开始列表页面的制作过程。</p>
+
+<p>可以预览下我们的最终制作效果图：</p>
+<div align="center">
+  <img src="./images/list.png" width="500" />
+</div>
+
+<p><br /></p>
+
+<p>分析下页面，很明显，日期是一个页面结构单位，一个单位里面的每篇文章也是一个小的单位。制作我们的页面如下，过程很简单，就不再复述了，修改 <code class="highlighter-rouge">index.wxml</code> 文件：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"wrapper"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"group-bar"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"group-title on"</span><span class="nt">&gt;</span>今日<span class="nt">&lt;/view&gt;</span>
+        <span class="nt">&lt;/view&gt;</span>
+        <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"group-content"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"group-content-item"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"group-content-item-desc ellipsis-multi-line ellipsis-line-3"</span><span class="nt">&gt;</span>为什么聪明人总能保持冷静？<span class="nt">&lt;/view&gt;</span>
+                <span class="nt">&lt;image</span> <span class="na">class=</span><span class="s">"group-content-item-img"</span> <span class="na">mode=</span><span class="s">"aspectFill"</span> <span class="na">src=</span><span class="s">"https://n1image.hjfile.cn/mh/2017/06/26/9ffa8c56cfd76cf5159011f4017f022e.jpg"</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/view&gt;</span>
+        <span class="nt">&lt;/view&gt;</span>
+    <span class="nt">&lt;/view&gt;</span>
+    <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"group-bar"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"group-title"</span><span class="nt">&gt;</span>06月27日<span class="nt">&lt;/view&gt;</span>
+        <span class="nt">&lt;/view&gt;</span>
+        <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"group-content"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"group-content-item"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"group-content-item-desc ellipsis-multi-line ellipsis-line-3"</span><span class="nt">&gt;</span>为什么聪明人总能保持冷静？<span class="nt">&lt;/view&gt;</span>
+                <span class="nt">&lt;image</span> <span class="na">class=</span><span class="s">"group-content-item-img"</span> <span class="na">mode=</span><span class="s">"aspectFill"</span> <span class="na">src=</span><span class="s">"https://n1image.hjfile.cn/mh/2017/06/26/9ffa8c56cfd76cf5159011f4017f022e.jpg"</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/view&gt;</span>
+        <span class="nt">&lt;/view&gt;</span>
+    <span class="nt">&lt;/view&gt;</span>
+    <span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"no-more"</span> <span class="na">hidden=</span><span class="s">""</span><span class="nt">&gt;</span>暂时没有更多内容<span class="nt">&lt;/view&gt;</span>
+<span class="nt">&lt;/view&gt;</span>    
+</code></pre>
+</div>
+
+<p><br /></p>
+
+<p>修改 <code class="highlighter-rouge">index.wxss</code> 文件：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nc">.wrapper</span> <span class="nc">.group</span> <span class="p">{</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span> <span class="m">36</span><span class="n">rpx</span> <span class="m">10</span><span class="n">rpx</span> <span class="m">36</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">background</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
+  <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">16</span><span class="n">rpx</span>
+<span class="p">}</span>
+
+<span class="nc">.wrapper</span> <span class="nc">.group-bar</span> <span class="p">{</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">114</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span>
+<span class="p">}</span>
+
+<span class="nc">.wrapper</span> <span class="nc">.group-title</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">inline-block</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span> <span class="m">12</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">40</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">line-height</span><span class="p">:</span> <span class="m">40</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">4</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="nb">solid</span> <span class="m">1</span><span class="n">rpx</span> <span class="m">#e0e0e2</span><span class="p">;</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">28</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#ccc</span><span class="p">;</span>
+  <span class="nl">margin-top</span><span class="p">:</span> <span class="m">38</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">overflow</span><span class="p">:</span> <span class="nb">visible</span>
+<span class="p">}</span>
+
+<span class="nc">.wrapper</span> <span class="nc">.group-title</span><span class="nd">:after</span><span class="o">,</span><span class="nc">.wrapper</span> <span class="nc">.group-title</span><span class="nd">:before</span> <span class="p">{</span>
+  <span class="nl">content</span><span class="p">:</span> <span class="s2">''</span><span class="p">;</span>
+  <span class="nl">top</span><span class="p">:</span> <span class="m">18</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">32</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">1</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">transform</span><span class="p">:</span> <span class="n">scaleY</span><span class="p">(</span><span class="m">.5</span><span class="p">);</span>
+  <span class="nl">border-bottom</span><span class="p">:</span> <span class="nb">solid</span> <span class="m">1px</span> <span class="m">#efefef</span>
+<span class="p">}</span>
+
+<span class="nc">.wrapper</span> <span class="nc">.group-title</span><span class="nd">:before</span> <span class="p">{</span>
+  <span class="nl">left</span><span class="p">:</span> <span class="m">-56</span><span class="n">rpx</span>
+<span class="p">}</span>
+
+<span class="nc">.wrapper</span> <span class="nc">.group-title</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="nl">right</span><span class="p">:</span> <span class="m">-56</span><span class="n">rpx</span>
+<span class="p">}</span>
+
+<span class="nc">.wrapper</span> <span class="nc">.group-title.on</span> <span class="p">{</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="nb">solid</span> <span class="m">1</span><span class="n">rpx</span> <span class="m">#ffc60e</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#ffc60e</span>
+<span class="p">}</span>
+
+<span class="nc">.wrapper</span> <span class="nc">.group-title.on</span><span class="nd">:after</span><span class="o">,</span><span class="nc">.wrapper</span> <span class="nc">.group-title.on</span><span class="nd">:before</span> <span class="p">{</span>
+  <span class="nl">border-bottom</span><span class="p">:</span> <span class="nb">solid</span> <span class="m">1px</span> <span class="m">#ffc60e</span>
+<span class="p">}</span>
+
+<span class="nc">.wrapper</span> <span class="nc">.group-content-item</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">194</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">28</span><span class="n">rpx</span>
+<span class="p">}</span>
+
+<span class="nc">.wrapper</span> <span class="nc">.group-content-item-desc</span> <span class="p">{</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">36</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">font-weight</span><span class="p">:</span> <span class="m">500</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">156</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">line-height</span><span class="p">:</span> <span class="m">52</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">margin-right</span><span class="p">:</span> <span class="m">300</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">margin-top</span><span class="p">:</span> <span class="m">8</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">overflow</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#333</span>
+<span class="p">}</span>
+
+<span class="nc">.wrapper</span> <span class="nc">.group-content-item-img</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+  <span class="nl">right</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">top</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">vertical-align</span><span class="p">:</span> <span class="nb">top</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">260</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">194</span><span class="n">rpx</span>
+<span class="p">}</span>
+
+<span class="nc">.wrapper</span> <span class="nc">.group-content-item.visited</span> <span class="nc">.group-content-item-desc</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#999</span>
+<span class="p">}</span>
+
+<span class="nc">.wrapper</span> <span class="nc">.no-more</span> <span class="p">{</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">44</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">line-height</span><span class="p">:</span> <span class="m">44</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">32</span><span class="n">rpx</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#ccc</span><span class="p">;</span>
+  <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">20</span><span class="n">rpx</span> <span class="m">0</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><br /></p>
+
+<p>静态页面已经制作完成，下一篇中，我们将带着大家开发业务流程</p>
+
+<p><a href="/">返回大纲</a></p>
+
+<p><a href="./ch2-3">上一篇：封装网络请求及 mock 数据</a></p>
+
+<p><a href="./ch3-2">下一篇：列表 - 页面逻辑处理</a></p>
+
+
+  </div>
+
+</article>
+
+        </div>
+    </div>
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">微信小程序教程</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>微信小程序教程</li>
+          <li><a href="mailto:ikcamp@qq.com">ikcamp@qq.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/ikcamp"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">ikcamp</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/ikcamp"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">ikcamp</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+    <script type="text/javascript">
+        !function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>r||i.x<0?-1:1,i.ya*=i.y>n||i.y<0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y>=x.max/2&&(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n>p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();
+
+    (function() {
+        function canvasTranstion() {
+            var waterfallCanvas = function(c, cw, ch) {
+                var _this = this;
+                this.c = c;
+                this.ctx = c.getContext('2d');
+                this.cw = cw;
+                this.ch = ch;
+
+                this.particles = [];
+                this.particleRate = 6;
+                this.gravity = .15;
+
+
+                this.init = function() {
+                    this.loop();
+                };
+
+                this.reset = function() {
+                    this.ctx.clearRect(0, 0, this.cw, this.ch);
+                    this.particles = [];
+                };
+
+                this.rand = function(rMi, rMa) {
+                    return ~~((Math.random() * (rMa - rMi + 1)) + rMi);
+                };
+
+
+                this.Particle = function() {
+                    var newWidth = _this.rand(1, 20);
+                    var newHeight = _this.rand(1, 45);
+                    this.x = _this.rand(10 + (newWidth / 2), _this.cw - 10 - (newWidth / 2));
+                    this.y = -newHeight;
+                    this.vx = 0;
+                    this.vy = 0;
+                    this.width = newWidth;
+                    this.height = newHeight;
+                    this.hue = _this.rand(200, 220);
+                    this.saturation = _this.rand(30, 60);
+                    this.lightness = _this.rand(30, 60);
+                };
+
+                this.Particle.prototype.update = function(i) {
+                    this.vx += this.vx;
+                    this.vy += _this.gravity;
+                    this.x += this.vx;
+                    this.y += this.vy;
+                };
+
+                this.Particle.prototype.render = function() {
+                    _this.ctx.strokeStyle = 'hsla(' + this.hue + ', ' + this.saturation + '%, ' + this.lightness + '%, .05)';
+                    _this.ctx.beginPath();
+                    _this.ctx.moveTo(this.x, this.y);
+                    _this.ctx.lineTo(this.x, this.y + this.height);
+                    _this.ctx.lineWidth = this.width / 2;
+                    _this.ctx.lineCap = 'round';
+                    _this.ctx.stroke();
+                };
+
+                this.Particle.prototype.renderBubble = function() {
+                    _this.ctx.fillStyle = 'hsla(' + this.hue + ', 40%, 40%, 1)';
+                    _this.ctx.fillStyle = 'hsla(' + this.hue + ', ' + this.saturation + '%, ' + this.lightness + '%, .3)';
+                    _this.ctx.beginPath();
+                    _this.ctx.arc(this.x + this.width / 2, _this.ch - 20 - _this.rand(0, 10), _this.rand(1, 8), 0, Math.PI * 2, false);
+                    _this.ctx.fill();
+                };
+
+                this.createParticles = function() {
+                    var i = this.particleRate;
+                    while (i--) {
+                        this.particles.push(new this.Particle());
+                    }
+                };
+
+                this.removeParticles = function() {
+                    var i = this.particleRate;
+                    while (i--) {
+                        var p = this.particles[i];
+                        if (p.y > _this.ch - 20 - p.height) {
+                            p.renderBubble();
+                            _this.particles.splice(i, 1);
+                        }
+                    }
+                };
+
+                this.updateParticles = function() {
+                    var i = this.particles.length;
+                    while (i--) {
+                        var p = this.particles[i];
+                        p.update(i);
+                    };
+                };
+
+                this.renderParticles = function() {
+                    var i = this.particles.length;
+                    while (i--) {
+                        var p = this.particles[i];
+                        p.render();
+                    };
+                };
+
+                this.clearCanvas = function() {
+                    this.ctx.globalCompositeOperation = 'destination-out';
+                    this.ctx.fillStyle = 'rgba(255,255,255,.06)';
+                    this.ctx.fillRect(0, 0, this.cw, this.ch);
+                    this.ctx.globalCompositeOperation = 'lighter';
+                };
+
+                this.loop = function() {
+                    var loopIt = function() {
+                        requestAnimationFrame(loopIt, _this.c);
+                        _this.clearCanvas();
+                        _this.createParticles();
+                        _this.updateParticles();
+                        _this.renderParticles();
+                        _this.removeParticles();
+                    };
+                    loopIt();
+                };
+
+            };
+
+            var isCanvasSupported = function() {
+                var elem = document.createElement('canvas');
+                return !!(elem.getContext && elem.getContext('2d'));
+            };
+
+            var setupRAF = function() {
+                var lastTime = 0;
+                var vendors = ['ms', 'moz', 'webkit', 'o'];
+                for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+                    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+                };
+
+                if (!window.requestAnimationFrame) {
+                    window.requestAnimationFrame = function(callback, element) {
+                        var currTime = new Date().getTime();
+                        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                        var id = window.setTimeout(function() {
+                            callback(currTime + timeToCall);
+                        }, timeToCall);
+                        lastTime = currTime + timeToCall;
+                        return id;
+                    };
+                };
+
+                if (!window.cancelAnimationFrame) {
+                    window.cancelAnimationFrame = function(id) {
+                        clearTimeout(id);
+                    };
+                };
+            };
+
+            if (isCanvasSupported()) {
+                var c = document.getElementById('waterfall');
+                var cw = c.width = 100;
+                var ch = c.height = 140;
+                var waterfall = new waterfallCanvas(c, cw, ch);
+                setupRAF();
+                waterfall.init();
+            }
+        }
+        canvasTranstion()
+    })()
+    </script>
+</body>
+
+</html>

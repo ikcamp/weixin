@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>小程序 | 项目结构设计</title>
+  <meta name="description" content="§ 项目结构设计">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="/ch2-1">
+</head>
+
+
+<body>
+    <header class="site-header-box">
+    <div class="site-header">
+        <div class="wrapper">
+            <a class="site-title" href="/">微信小程序教程</a>
+            <!-- <a class="site-ikcamp">iKcamp</a> -->
+            <div id="container" class="canvasbox">
+                <canvas id="waterfall" width="100" height="140"></canvas>
+            </div>
+        </div>
+    </div>
+</header>
+    <div class="page-content">
+        <div class="wrapper markdown-body">
+            <article class="post">
+
+  <header class="post-header">
+    <p class="post-title" itemprop="name headline">第二章：小程序中级实战教程：预备篇</p>
+    <p class="post-meta">项目结构设计</p>
+  </header>
+
+  <div class="post-content markdown-body" itemprop="articleBody">
+    <h2 id="asect-a"><a>§ 项目结构设计</a></h2>
+
+<p>前面的章节中，我们完成了小程序的准备工作，熟悉了小程序的基本配置。接下来的章节，我们就要着手开始一个真正的项目。有没有很激动？其实不难发现，小程序的门槛还是相对比较低的，基本掌握前端开发基础的同学，完成一个简单的小程序不费吹灰之力。  <br />
+<br /></p>
+
+<h3 id="step-1-">Step 1. 基本结构</h3>
+<p>经过前面几章的学习，我们已经基本知道了小程序的基本配置，不啰嗦，先把基础的项目结构建立起来，先搭架子，在丰富细节。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>├── pages/
+├── app.js
+├── app.json
+├── app.wxss
+</code></pre>
+</div>
+<p><br /></p>
+
+<p>现在呢，最最基本的框架就已经搭建好了。<code class="highlighter-rouge">app.js</code> 是小程序的主逻辑文件，<code class="highlighter-rouge">app.json</code> 是小程序全局配置文件，<code class="highlighter-rouge">app.wxss</code> 当然就是小程序的全局样式文件了。<code class="highlighter-rouge">pages</code> 后面会用来存放小程序的页面。</p>
+
+<ul>
+  <li>app.js</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">handler</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">//小程序初始化</span>
+    <span class="nx">onLaunch</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'app init...'</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="c1">//小程序全局数据</span>
+    <span class="na">globalData</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">user</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">name</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+            <span class="na">avator</span><span class="p">:</span> <span class="s1">''</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">App</span><span class="p">(</span><span class="nx">handler</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p><br /></p>
+
+<p><code class="highlighter-rouge">app.js</code> 包含了小程序的一些生命周期函数，项目刚开始，我们先从简单的开始，只用到了 <code class="highlighter-rouge">onLaunch</code> 生命周期函数。当小程序初始化完成时，会触发  onLaunch（全局只触发一次）。<code class="highlighter-rouge">globalData</code> 可以用来存放小程序的全局数据，我们可以在页面中通过 <code class="highlighter-rouge">getApp()</code> 方法获取到小程序的实例，通过小程序实例就可以访问到这个全局对象，后面会详细讲解。  <br />
+<br /></p>
+
+<ul>
+  <li>app.json</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"pages"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+   </span><span class="nt">"window"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"navigationBarBackgroundColor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#fff"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"navigationBarTextStyle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"black"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"navigationBarTitleText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"backgroundColor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#f8f8f8"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"backgroundTextStyle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"light"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"enablePullDownRefresh"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"networkTimeout"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"request"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"connectSocket"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"uploadFile"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"downloadFile"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"debug"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><br /></p>
+
+<p>小程序的主配置文件的基本结构就已经写好了。当然不是全部的配置文件，可以参考<a href="https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html">小程序配置API</a>。官方文档已经给出了很详细的解释，这里就不赘述了。</p>
+
+<p><strong>Tip：</strong><code class="highlighter-rouge">debug</code> 为 <code class="highlighter-rouge">true</code>，可以在调试的时候会有些许帮助，但是提审的时候建议改为 <code class="highlighter-rouge">false</code>。</p>
+
+<p><br /></p>
+
+<ul>
+  <li>app.wxss</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nc">.green</span><span class="p">{</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#26b961</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">page</span><span class="p">{</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="m">#f8f8f8</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p><br /></p>
+
+<p>定义在 <code class="highlighter-rouge">app.wxss</code> 中的样式为全局样式，作用于每一个页面。在 <code class="highlighter-rouge">page</code> 的 <code class="highlighter-rouge">wxss</code> 文件中定义的样式为局部样式，只作用在对应的页面，并会覆盖 <code class="highlighter-rouge">app.wxss</code> 中相同的选择器。</p>
+
+<h3 id="step-2-">Step 2. 增加页面</h3>
+<p>接下来我们要为小程序增加页面了，小程序的页面存放在 <code class="highlighter-rouge">pages</code> 文件夹下面。我们继续完善目录结构</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>├── pages/
+│     ├── detail/ 
+│     ├── index/
+├── app.js
+├── app.json
+├── app.wxss
+</code></pre>
+</div>
+
+<p><br /></p>
+
+<p>首先我们在 <code class="highlighter-rouge">pages</code> 目录下增加两个文件夹，<code class="highlighter-rouge">detail</code> 和 <code class="highlighter-rouge">index</code>,其中 <code class="highlighter-rouge">detail</code> 代表小程序的文章详情页面，<code class="highlighter-rouge">index</code> 则代表小程序的首页。</p>
+
+<p>光有文件夹不行，在小程序中，每个页面都有四个文件<br />
+- [name].js   页面的主逻辑文件<br />
+- [name].json 页面的配置文件<br />
+- [name].wxml 页面内容，类似于之前的html文件<br />
+- [name].wxss 页面的样式文件，类似之前的css文件</p>
+
+<p><strong>Tip：</strong> 值得注意的是，每个页面中的这四个文件必须保持同名。</p>
+
+<p>继续完善文件目录</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>├── pages/
+│     ├── detail/
+│     │     ├── detail.js  
+│     │     ├── detail.json        
+│     │     ├── detail.wxml      
+│     │     ├── detail.wxss  
+│     ├── index/
+│           ├── index.js  
+│           ├── index.json  
+│           ├── index.wxml      
+│           ├── index.wxss   
+├── app.js
+├── app.json
+├── app.wxss
+</code></pre>
+</div>
+
+<p><br /></p>
+
+<ul>
+  <li>index.js</li>
+</ul>
+
+<p>和之前的 <code class="highlighter-rouge">app.js</code> 类似，小程序的页面也有对应的逻辑文件，比如 <code class="highlighter-rouge">index.js</code> 就代表该项目中的首页的逻辑（小程序的首页不一定非要是 <code class="highlighter-rouge">index</code>，可以用其他名字）。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">Page</span><span class="p">({</span>
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">text</span><span class="p">:</span> <span class="s2">"This is page data."</span>
+  <span class="p">},</span>
+  <span class="na">onLoad</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'小程序加载了'</span><span class="p">)</span>  
+    <span class="c1">// 生命周期函数--监听页面加载</span>
+  <span class="p">},</span>
+  <span class="nx">onReady</span><span class="err">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 生命周期函数--监听页面初次渲染完成</span>
+  <span class="p">},</span>
+  <span class="nx">onShow</span><span class="err">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 生命周期函数--监听页面显示</span>
+  <span class="p">},</span>
+  <span class="nx">onReachBottom</span><span class="err">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 页面上拉触底事件的处理函数</span>
+  <span class="p">},</span>
+  <span class="c1">// 其他一些业务函数</span>
+  <span class="nx">hello</span><span class="err">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setData</span><span class="p">({</span>
+      <span class="na">text</span><span class="p">:</span> <span class="s1">'hello world'</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+<p><br /></p>
+
+<p><code class="highlighter-rouge">Page()</code> 函数用来注册一个页面。接受一个 <code class="highlighter-rouge">object</code> 参数，其指定页面的初始数据、生命周期函数、事件处理函数等。</p>
+
+<ul>
+  <li>index.json</li>
+</ul>
+
+<p>每一个小程序页面也可以使用 <code class="highlighter-rouge">.json</code> 文件来对本页面的窗口表现进行配置。页面的配置比 <code class="highlighter-rouge">app.json</code> 全局配置简单得多，只是设置 <code class="highlighter-rouge">app.json</code> 中的 <code class="highlighter-rouge">window</code> 配置项的内容，页面中配置项会覆盖 <code class="highlighter-rouge">app.json</code> 的 <code class="highlighter-rouge">window</code> 中相同的配置项。</p>
+
+<p>页面的 <code class="highlighter-rouge">.json</code> 只能设置 <code class="highlighter-rouge">window</code> 相关的配置项，以决定本页面的窗口表现，所以无需写 <code class="highlighter-rouge">window</code> 这个键。因为本项目比较简单，可以先使用全局的配置。暂时可以放一个空的 <code class="highlighter-rouge">json</code> 对象</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+<p><br /></p>
+
+<ul>
+  <li>index.wxml</li>
+</ul>
+
+<p><code class="highlighter-rouge">.wxml</code> 就是小程序的页面文件了，WXML（WeiXin Markup Language）是框架设计的一套标签语言，结合基础组件、事件系统，可以构建出页面的结构。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"home"</span><span class="nt">&gt;</span> this is home page <span class="nt">&lt;/view&gt;</span>
+</code></pre>
+</div>
+<p><br /></p>
+
+<ul>
+  <li>index.wxss</li>
+</ul>
+
+<p>WXSS(WeiXin Style Sheets)是一套样式语言，用于描述 <code class="highlighter-rouge">WXML</code> 的组件样式。这里的样式基本和之前 <code class="highlighter-rouge">css</code> 的语法一致，可以覆盖 <code class="highlighter-rouge">app.wxss</code> 中定义的样式。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nc">.home</span> <span class="p">{</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">28</span><span class="n">rpx</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p><br /></p>
+
+<p>同样的 <code class="highlighter-rouge">detail</code> 页面也会拥有类似的结构和代码。</p>
+
+<p>完成了上面的基本的页面，仔细的同学可能还发现，上面的 <code class="highlighter-rouge">app.json</code> 配置中，<code class="highlighter-rouge">pages</code> 还是空的，接下来补充配置。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="w"> </span><span class="s2">"pages"</span><span class="err">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"pages/index/index"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pages/detail/detail"</span><span class="w">
+ </span><span class="p">]</span><span class="w">
+</span></code></pre>
+</div>
+<p><br /></p>
+
+<p><code class="highlighter-rouge">pages</code> 就是小程序的路由配置，这里可以看到，小程序拥有两个路由，一个首页，一个详情页面。</p>
+
+<p>至此我们就完成了最简单的页面的配置，到现在为止，我们就能很容易的跑出一个简单的微信小程序了，虽然还只是最基本的骨架，后面会继续完善。</p>
+
+<h3 id="step-3-">Step 3. 一些非必要目录</h3>
+<p>上面介绍了小程序的必要的项目结构，其实在实际的项目中，为了开发方便，我们一般还会增加一些额外的目录，比如：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>├── lib/
+├── pages/
+│     ├── detail/
+│     │     ├── detail.js  
+│     │     ├── detail.json        
+│     │     ├── detail.wxml      
+│     │     ├── detail.wxss  
+│     ├── index/
+│           ├── index.js  
+│           ├── index.json  
+│           ├── index.wxml      
+│           ├── index.wxss  
+├── styles/ 
+│     ├── base.wxss 
+├── app.js
+├── app.json
+├── app.wxss
+</code></pre>
+</div>
+<p><br /></p>
+
+<p><code class="highlighter-rouge">lib</code> 文件夹和 <code class="highlighter-rouge">styles</code> 文件夹  文件夹不是小程序的必要配置，前者用来存放项目中用到的其他库，后者可以存放一些基础样式文件。当然，你也可以根据自己的需要来增加一些别的文件夹来便利开发。</p>
+
+<p>这里我们放置了一些文件，lib 中放置了实现 <code class="highlighter-rouge">Promise</code> 的库和解析 <code class="highlighter-rouge">html</code> 为小程序 <code class="highlighter-rouge">WXML</code> 的库。styles 中放置了公用的重置样式。</p>
+
+<p><br /></p>
+
+<p>下一节中，我们讲一下这个实战项目中用到的一些公用方法，比如打印日志功能、网络请求环境等</p>
+
+<p><a href="/">返回大纲</a></p>
+
+<p><a href="./ch1-5">上一篇：发布流程</a></p>
+
+<p><a href="./ch2-2">下一篇：提取 util 公用方法</a></p>
+
+
+  </div>
+
+</article>
+
+        </div>
+    </div>
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">微信小程序教程</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>微信小程序教程</li>
+          <li><a href="mailto:ikcamp@qq.com">ikcamp@qq.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/ikcamp"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">ikcamp</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/ikcamp"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">ikcamp</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+    <script type="text/javascript">
+        !function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>r||i.x<0?-1:1,i.ya*=i.y>n||i.y<0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y>=x.max/2&&(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n>p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();
+
+    (function() {
+        function canvasTranstion() {
+            var waterfallCanvas = function(c, cw, ch) {
+                var _this = this;
+                this.c = c;
+                this.ctx = c.getContext('2d');
+                this.cw = cw;
+                this.ch = ch;
+
+                this.particles = [];
+                this.particleRate = 6;
+                this.gravity = .15;
+
+
+                this.init = function() {
+                    this.loop();
+                };
+
+                this.reset = function() {
+                    this.ctx.clearRect(0, 0, this.cw, this.ch);
+                    this.particles = [];
+                };
+
+                this.rand = function(rMi, rMa) {
+                    return ~~((Math.random() * (rMa - rMi + 1)) + rMi);
+                };
+
+
+                this.Particle = function() {
+                    var newWidth = _this.rand(1, 20);
+                    var newHeight = _this.rand(1, 45);
+                    this.x = _this.rand(10 + (newWidth / 2), _this.cw - 10 - (newWidth / 2));
+                    this.y = -newHeight;
+                    this.vx = 0;
+                    this.vy = 0;
+                    this.width = newWidth;
+                    this.height = newHeight;
+                    this.hue = _this.rand(200, 220);
+                    this.saturation = _this.rand(30, 60);
+                    this.lightness = _this.rand(30, 60);
+                };
+
+                this.Particle.prototype.update = function(i) {
+                    this.vx += this.vx;
+                    this.vy += _this.gravity;
+                    this.x += this.vx;
+                    this.y += this.vy;
+                };
+
+                this.Particle.prototype.render = function() {
+                    _this.ctx.strokeStyle = 'hsla(' + this.hue + ', ' + this.saturation + '%, ' + this.lightness + '%, .05)';
+                    _this.ctx.beginPath();
+                    _this.ctx.moveTo(this.x, this.y);
+                    _this.ctx.lineTo(this.x, this.y + this.height);
+                    _this.ctx.lineWidth = this.width / 2;
+                    _this.ctx.lineCap = 'round';
+                    _this.ctx.stroke();
+                };
+
+                this.Particle.prototype.renderBubble = function() {
+                    _this.ctx.fillStyle = 'hsla(' + this.hue + ', 40%, 40%, 1)';
+                    _this.ctx.fillStyle = 'hsla(' + this.hue + ', ' + this.saturation + '%, ' + this.lightness + '%, .3)';
+                    _this.ctx.beginPath();
+                    _this.ctx.arc(this.x + this.width / 2, _this.ch - 20 - _this.rand(0, 10), _this.rand(1, 8), 0, Math.PI * 2, false);
+                    _this.ctx.fill();
+                };
+
+                this.createParticles = function() {
+                    var i = this.particleRate;
+                    while (i--) {
+                        this.particles.push(new this.Particle());
+                    }
+                };
+
+                this.removeParticles = function() {
+                    var i = this.particleRate;
+                    while (i--) {
+                        var p = this.particles[i];
+                        if (p.y > _this.ch - 20 - p.height) {
+                            p.renderBubble();
+                            _this.particles.splice(i, 1);
+                        }
+                    }
+                };
+
+                this.updateParticles = function() {
+                    var i = this.particles.length;
+                    while (i--) {
+                        var p = this.particles[i];
+                        p.update(i);
+                    };
+                };
+
+                this.renderParticles = function() {
+                    var i = this.particles.length;
+                    while (i--) {
+                        var p = this.particles[i];
+                        p.render();
+                    };
+                };
+
+                this.clearCanvas = function() {
+                    this.ctx.globalCompositeOperation = 'destination-out';
+                    this.ctx.fillStyle = 'rgba(255,255,255,.06)';
+                    this.ctx.fillRect(0, 0, this.cw, this.ch);
+                    this.ctx.globalCompositeOperation = 'lighter';
+                };
+
+                this.loop = function() {
+                    var loopIt = function() {
+                        requestAnimationFrame(loopIt, _this.c);
+                        _this.clearCanvas();
+                        _this.createParticles();
+                        _this.updateParticles();
+                        _this.renderParticles();
+                        _this.removeParticles();
+                    };
+                    loopIt();
+                };
+
+            };
+
+            var isCanvasSupported = function() {
+                var elem = document.createElement('canvas');
+                return !!(elem.getContext && elem.getContext('2d'));
+            };
+
+            var setupRAF = function() {
+                var lastTime = 0;
+                var vendors = ['ms', 'moz', 'webkit', 'o'];
+                for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+                    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+                };
+
+                if (!window.requestAnimationFrame) {
+                    window.requestAnimationFrame = function(callback, element) {
+                        var currTime = new Date().getTime();
+                        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                        var id = window.setTimeout(function() {
+                            callback(currTime + timeToCall);
+                        }, timeToCall);
+                        lastTime = currTime + timeToCall;
+                        return id;
+                    };
+                };
+
+                if (!window.cancelAnimationFrame) {
+                    window.cancelAnimationFrame = function(id) {
+                        clearTimeout(id);
+                    };
+                };
+            };
+
+            if (isCanvasSupported()) {
+                var c = document.getElementById('waterfall');
+                var cw = c.width = 100;
+                var ch = c.height = 140;
+                var waterfall = new waterfallCanvas(c, cw, ch);
+                setupRAF();
+                waterfall.init();
+            }
+        }
+        canvasTranstion()
+    })()
+    </script>
+</body>
+
+</html>
