@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>小程序 | 详情 - 页面制作</title>
-  <meta name="description" content="§ 详情 - 页面制作  这一章节中，主要介绍详情页的页面制作过程">
+  <meta name="description" content="§ 详情 - 页面制作">
 
-  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="/ch4-1">
 </head>
 
@@ -17,7 +17,7 @@
     <header class="site-header-box">
     <div class="site-header">
         <div class="wrapper">
-            <a class="site-title" href="./">微信小程序教程</a>
+            <a class="site-title" href="/">微信小程序教程</a>
             <!-- <a class="site-ikcamp">iKcamp</a> -->
             <div id="container" class="canvasbox">
                 <canvas id="waterfall" width="100" height="140"></canvas>
@@ -35,20 +35,24 @@
   </header>
 
   <div class="post-content markdown-body" itemprop="articleBody">
-    <h2 id="section">§ 详情 - 页面制作</h2>
+    <h2 id="asect----a"><a>§ 详情 - 页面制作</a></h2>
+
 <blockquote>
-  <p>这一章节中，主要介绍详情页的页面制作过程</p>
+  <p>开始前请把 <code class="highlighter-rouge">ch4-1</code> 分支中的 <code class="highlighter-rouge">code/</code> 目录导入微信开发工具  <br />
+这一章节中，主要介绍详情页的页面制作过程</p>
 </blockquote>
 
+<p><br /></p>
+
 <p>首先看一下我们最终要展示的页面</p>
+
 <div align="center">
   <img src="./images/WechatIMG5-1.jpeg" width="400" alt="" />
 </div>
 
 <p><br /></p>
 
-<p>页面结构大体分为三部分，也是最常见的布局方式：头部、中间体、尾部。最顶部的是页面 <code class="highlighter-rouge">title</code>，也就是标题，如果是一般的页面，我们只需要在 <code class="highlighter-rouge">detail.json</code> 中增加如下配置即可：  <br />
-<br /></p>
+<p>页面结构大体分为三部分，也是最常见的布局方式：头部、中间体、尾部。最顶部的是页面 <code class="highlighter-rouge">title</code>，也就是标题，如果是一般的页面，我们只需要在 <code class="highlighter-rouge">detail.json</code> 中增加如下配置即可：</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="s2">"navigationBarTitleText"</span><span class="err">:</span><span class="w"> </span><span class="s2">"Quora精选：为什么聪明人总能保持冷静"</span><span class="err">~~</span><span class="w">
 </span></code></pre>
@@ -168,6 +172,7 @@
 <p><br /></p>
 
 <h3 id="step-3-">Step 3. 页面尾部制作</h3>
+
 <blockquote>
   <p>页尾类似于于菜单导航功能，用户可以进入 <code class="highlighter-rouge">下一篇</code> 或 <code class="highlighter-rouge">返回</code> 列表，并且当页面滚动时候，固定在底部不动</p>
 </blockquote>
@@ -314,7 +319,7 @@
 </code></pre>
 </div>
 
-<p><a href="./">返回大纲</a></p>
+<p><a href="/">返回大纲</a></p>
 
 <p><a href="./ch3-4">上一篇：列表 - 阅读标识</a></p>
 
@@ -361,7 +366,7 @@
       </div>
 
       <div class="footer-col footer-col-3">
-        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+        <p>iKcamp由沪江Web前端团队中热爱原创和翻译的小伙伴发起，成立于2016年7月，"iK"代表布兰登·艾克（JavaScript之父）。 追随JavaScript这门语言所秉持的精神，崇尚开放和自由的我们一同工作、分享、创作，等候更多有趣跳动的灵魂。
 </p>
       </div>
     </div>

@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>小程序 | util 公共方法</title>
-  <meta name="description" content="§ util 公共方法">
+  <meta name="description" content="§ util 公共方法  开始前请把 ch2-2 分支中的 code/ 目录导入微信开发工具">
 
-  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="/ch2-2">
 </head>
 
@@ -17,7 +17,7 @@
     <header class="site-header-box">
     <div class="site-header">
         <div class="wrapper">
-            <a class="site-title" href="./">微信小程序教程</a>
+            <a class="site-title" href="/">微信小程序教程</a>
             <!-- <a class="site-ikcamp">iKcamp</a> -->
             <div id="container" class="canvasbox">
                 <canvas id="waterfall" width="100" height="140"></canvas>
@@ -36,6 +36,10 @@
 
   <div class="post-content markdown-body" itemprop="articleBody">
     <h2 id="asect-util-a"><a>§ util 公共方法</a></h2>
+<blockquote>
+  <p>开始前请把 <code class="highlighter-rouge">ch2-2</code> 分支中的 <code class="highlighter-rouge">code/</code> 目录导入微信开发工具</p>
+</blockquote>
+
 <p><br /></p>
 
 <p>在这一章中，我们会在util目录新建 3 个文件，这些文件分别提供了一些常用的函数，变量，已便我们在不同的页面中使用</p>
@@ -262,14 +266,17 @@
 <div class="highlighter-rouge"><pre class="highlight"><code>  <span class="kr">import</span> <span class="nx">Promise</span> <span class="nx">from</span> <span class="s1">'../lib/promise'</span>
 </code></pre>
 </div>
-<p>这一段代码的作用是引入一个实现 Promise 的第三方工具库，这样我们就可以在小程序中使用 Promise 方法来解决 <code class="highlighter-rouge">回调地狱</code> 的问题。</p>
+<p>这一段代码的作用是引入一个实现 Promise 的 <a href="https://github.com/icindy/wxParse">第三方工具库</a>，这样我们就可以在小程序中使用 Promise 方法来解决 <code class="highlighter-rouge">回调地狱</code> 的问题。</p>
 
 <p><strong>注意：</strong> 在新版本的小程序中已经支持了原生 Promise 方法  <br />
 <br /></p>
 
 <p>下面我们开始对 util 对象进行公用方法扩展封装：<br />
-增加 log 控制台调试功能<br />
-&gt; 如果环境配置为dev环境，则打印参数内容</p>
+增加 log 控制台调试功能</p>
+
+<blockquote>
+  <p>如果环境配置为dev环境，则打印参数内容</p>
+</blockquote>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>let util = {
   isDEV: config.isDev,
@@ -279,12 +286,18 @@
 }
 </code></pre>
 </div>
+
 <p><br /></p>
 
-<p>封装 alert 弹出窗口<br />
-&gt; 由于开发环境中，经常需要查看一些对象信息，所以增加了 object 类型解析</p>
+<p>封装 alert 弹出窗口</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  <span class="nx">alert</span><span class="p">(</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">'提示'</span><span class="p">,</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">defaultAlertMsg</span><span class="p">)</span> <span class="p">{</span>
+<blockquote>
+  <p>由于开发环境中，经常需要查看一些对象信息，所以增加了 object 类型解析</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">util</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// 此处省略部分代码</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">'提示'</span><span class="p">,</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">defaultAlertMsg</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="s1">'object'</span> <span class="o">===</span> <span class="k">typeof</span> <span class="nx">content</span><span class="p">){</span>
       <span class="nx">content</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">isDEV</span> <span class="o">&amp;&amp;</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span> <span class="o">||</span> <span class="nx">config</span><span class="p">.</span><span class="nx">defaultAlertMsg</span>
     <span class="p">}</span>
@@ -293,6 +306,7 @@
       <span class="na">content</span><span class="p">:</span> <span class="nx">content</span>
     <span class="p">})</span>
   <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 <p><br /></p>
@@ -300,11 +314,16 @@
 <p>wx.showModal 是微信官方提供的 api 方法，具体用法可 <a href="https://mp.weixin.qq.com/debug/wxadoc/dev/api/api-react.html#wxshowmodalobject">查阅文档</a>  <br />
 <br /></p>
 
-<p>封装本地缓存数据的读取功能<br />
-&gt; <a href="https://mp.weixin.qq.com/debug/wxadoc/dev/api/data.html#wxgetstorageobject">wx.getStorage 文档地址</a>  <br />
-&gt; <a href="https://mp.weixin.qq.com/debug/wxadoc/dev/api/data.html#wxsetstorageobject">wx.setStorage 文档地址</a></p>
+<p>封装本地缓存数据的读取功能</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  <span class="nx">getStorageData</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+<blockquote>
+  <p><a href="https://mp.weixin.qq.com/debug/wxadoc/dev/api/data.html#wxgetstorageobject">wx.getStorage 文档地址</a>  <br />
+<a href="https://mp.weixin.qq.com/debug/wxadoc/dev/api/data.html#wxsetstorageobject">wx.setStorage 文档地址</a></p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">util</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// 此处省略部分代码</span>
+  <span class="nx">getStorageData</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
 
     <span class="c1">// 将数据存储在本地缓存中指定的 key 中，会覆盖掉原来该 key 对应的内容，这是一个异步接口</span>
@@ -330,6 +349,7 @@
       <span class="p">}</span>
     <span class="p">})</span>
   <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -337,7 +357,7 @@
 
 <p>下一篇中，我们会把网络请求封装起来，并增加本地 <code class="highlighter-rouge">mock</code> 功能</p>
 
-<p><a href="./">返回大纲</a></p>
+<p><a href="/">返回大纲</a></p>
 
 <p><a href="./ch2-1">上一篇：项目结构设计</a></p>
 
@@ -384,7 +404,7 @@
       </div>
 
       <div class="footer-col footer-col-3">
-        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+        <p>iKcamp由沪江Web前端团队中热爱原创和翻译的小伙伴发起，成立于2016年7月，"iK"代表布兰登·艾克（JavaScript之父）。 追随JavaScript这门语言所秉持的精神，崇尚开放和自由的我们一同工作、分享、创作，等候更多有趣跳动的灵魂。
 </p>
       </div>
     </div>

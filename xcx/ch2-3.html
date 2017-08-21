@@ -8,7 +8,7 @@
   <title>小程序 | 封装网络请求及 mock 数据</title>
   <meta name="description" content="§ 封装网络请求及 mock 数据">
 
-  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="/ch2-3">
 </head>
 
@@ -17,7 +17,7 @@
     <header class="site-header-box">
     <div class="site-header">
         <div class="wrapper">
-            <a class="site-title" href="./">微信小程序教程</a>
+            <a class="site-title" href="/">微信小程序教程</a>
             <!-- <a class="site-ikcamp">iKcamp</a> -->
             <div id="container" class="canvasbox">
                 <canvas id="waterfall" width="100" height="140"></canvas>
@@ -37,6 +37,12 @@
   <div class="post-content markdown-body" itemprop="articleBody">
     <h2 id="asect--mock-a"><a>§ 封装网络请求及 mock 数据</a></h2>
 
+<blockquote>
+  <p>开始前请把 <code class="highlighter-rouge">ch2-3</code> 分支中的 <code class="highlighter-rouge">code/</code> 目录导入微信开发工具</p>
+</blockquote>
+
+<p><br /></p>
+
 <p>上一节中，我们对 index.js 文件中增加了 util 对象，并在对象中封装了很多公用方法</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">util</span> <span class="o">=</span> <span class="p">{</span>
@@ -52,6 +58,7 @@
 <p>本节中，我们对常用的网络请求方法 <a href="https://mp.weixin.qq.com/debug/wxadoc/dev/api/network-request.html">wx.request</a> 进行封装</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>  <span class="kd">let</span> <span class="nx">util</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">// 此处省略部分代码</span>
     <span class="nx">request</span><span class="p">(</span><span class="nx">opt</span><span class="p">){</span>
       <span class="kd">let</span> <span class="p">{</span><span class="nx">url</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">header</span><span class="p">,</span> <span class="nx">method</span><span class="p">,</span> <span class="nx">dataType</span><span class="p">}</span> <span class="o">=</span> <span class="nx">opt</span>
       <span class="kd">let</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span>
@@ -89,19 +96,19 @@
     <span class="na">url</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
     <span class="na">data</span><span class="p">:</span> <span class="p">{},</span>
     <span class="na">header</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nx">Content</span><span class="o">-</span><span class="na">Type</span><span class="p">:</span> <span class="s1">'application/json'</span>
+ <span class="err"> </span> <span class="err"> </span> <span class="err"> </span><span class="s2">"Content-Type"</span><span class="p">:</span> <span class="s2">"application/json"</span>
     <span class="p">},</span>
     <span class="na">method</span><span class="p">:</span> <span class="s1">'GET'</span><span class="p">,</span>
     <span class="na">dataType</span><span class="p">:</span> <span class="s1">'json'</span>
   <span class="p">}</span>
 
   <span class="kd">let</span> <span class="nx">util</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1">// 此处略去上节内容</span>
+    <span class="c1">// 此处省略部分代码</span>
     <span class="nx">request</span> <span class="p">(</span><span class="nx">opt</span><span class="p">){</span>
       <span class="kd">let</span> <span class="nx">options</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">DEFAULT_REQUEST_OPTIONS</span><span class="p">,</span> <span class="nx">opt</span><span class="p">)</span>
       <span class="kd">let</span> <span class="p">{</span><span class="nx">url</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">header</span><span class="p">,</span> <span class="nx">method</span><span class="p">,</span> <span class="nx">dataType</span><span class="p">,</span> <span class="nx">mock</span> <span class="o">=</span> <span class="kc">false</span><span class="p">}</span> <span class="o">=</span> <span class="nx">options</span>
       <span class="kd">let</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span>
-      <span class="c1">// 后面内容省略 </span>
+      <span class="c1">// 此处省略部分代码 </span>
     <span class="p">}</span>
   <span class="p">}</span>
 </code></pre>
@@ -111,7 +118,7 @@
 <p>如果是本地开发调试，需要增加我们的 mock 假数据，对 util.request 进行修改</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>  <span class="kd">let</span> <span class="nx">util</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1">// 此处略去上节内容</span>
+    <span class="c1">// 此处省略部分代码</span>
     <span class="nx">request</span> <span class="p">(</span><span class="nx">opt</span><span class="p">){</span>
       <span class="kd">let</span> <span class="nx">options</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">DEFAULT_REQUEST_OPTIONS</span><span class="p">,</span> <span class="nx">opt</span><span class="p">)</span>
       <span class="kd">let</span> <span class="p">{</span><span class="nx">url</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">header</span><span class="p">,</span> <span class="nx">method</span><span class="p">,</span> <span class="nx">dataType</span><span class="p">,</span> <span class="nx">mock</span> <span class="o">=</span> <span class="kc">false</span><span class="p">}</span> <span class="o">=</span> <span class="nx">options</span>
@@ -156,8 +163,9 @@
   <span class="p">}</span>
 </code></pre>
 </div>
-<p>如果请求接口调用时候，包含有参数 mock = true，会自动调用相应的 mock 数据，如果没有这个参数，就走正常流程去调数据。  <br />
-<br /></p>
+<p>如果请求接口调用时候，包含有参数 mock = true，会自动调用相应的 mock 数据，如果没有这个参数，就走正常流程去调数据。</p>
+
+<p><br /></p>
 
 <p>调用方法如下：</p>
 
@@ -177,7 +185,7 @@
 </code></pre>
 </div>
 
-<p><a href="./">返回大纲</a></p>
+<p><a href="/">返回大纲</a></p>
 
 <p><a href="./ch2-2">上一篇：提取 util 公用方法</a></p>
 
@@ -225,7 +233,7 @@
       </div>
 
       <div class="footer-col footer-col-3">
-        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+        <p>iKcamp由沪江Web前端团队中热爱原创和翻译的小伙伴发起，成立于2016年7月，"iK"代表布兰登·艾克（JavaScript之父）。 追随JavaScript这门语言所秉持的精神，崇尚开放和自由的我们一同工作、分享、创作，等候更多有趣跳动的灵魂。
 </p>
       </div>
     </div>

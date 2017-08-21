@@ -8,7 +8,7 @@
   <title>小程序 | 项目结构设计</title>
   <meta name="description" content="§ 项目结构设计">
 
-  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="/ch2-1">
 </head>
 
@@ -17,7 +17,7 @@
     <header class="site-header-box">
     <div class="site-header">
         <div class="wrapper">
-            <a class="site-title" href="./">微信小程序教程</a>
+            <a class="site-title" href="/">微信小程序教程</a>
             <!-- <a class="site-ikcamp">iKcamp</a> -->
             <div id="container" class="canvasbox">
                 <canvas id="waterfall" width="100" height="140"></canvas>
@@ -37,18 +37,29 @@
   <div class="post-content markdown-body" itemprop="articleBody">
     <h2 id="asect-a"><a>§ 项目结构设计</a></h2>
 
-<p>前面的章节中，我们完成了小程序的准备工作，熟悉了小程序的基本配置。接下来的章节，我们就要着手开始一个真正的项目。有没有很激动？其实不难发现，小程序的门槛还是相对比较低的，基本掌握前端开发基础的同学，完成一个简单的小程序不费吹灰之力。  <br />
-<br /></p>
+<blockquote>
+  <p>开始前请把 <code class="highlighter-rouge">ch2-1</code> 分支中的 <code class="highlighter-rouge">code/</code> 目录导入微信开发工具  </p>
+</blockquote>
+
+<p><br /></p>
+
+<p>前面的章节中，我们完成了小程序的准备工作，熟悉了小程序的基本配置。接下来的章节，我们就要着手开始一个真正的项目。有没有很激动？其实不难发现，小程序的门槛还是相对比较低的，基本掌握前端开发基础的同学，完成一个简单的小程序不费吹灰之力。  </p>
+
+<p><br /></p>
 
 <h3 id="step-1-">Step 1. 基本结构</h3>
-<p>经过前面几章的学习，我们已经基本知道了小程序的基本配置，不啰嗦，先把基础的项目结构建立起来，先搭架子，在丰富细节。</p>
+<p>经过前面几章的学习，我们已经基本知道了小程序的基本配置，不啰嗦，先把基础的项目结构建立起来，先搭架子，在丰富细节。在 <code class="highlighter-rouge">/codes/ch2-1</code> 的基础上，我们创建以下文件：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>├── pages/
+<div class="highlighter-rouge"><pre class="highlight"><code>├── lib/
+├── styles/ 
+│     ├── base.wxss 
+├── pages/
 ├── app.js
 ├── app.json
 ├── app.wxss
 </code></pre>
 </div>
+
 <p><br /></p>
 
 <p>现在呢，最最基本的框架就已经搭建好了。<code class="highlighter-rouge">app.js</code> 是小程序的主逻辑文件，<code class="highlighter-rouge">app.json</code> 是小程序全局配置文件，<code class="highlighter-rouge">app.wxss</code> 当然就是小程序的全局样式文件了。<code class="highlighter-rouge">pages</code> 后面会用来存放小程序的页面。</p>
@@ -76,8 +87,9 @@
 
 <p><br /></p>
 
-<p><code class="highlighter-rouge">app.js</code> 包含了小程序的一些生命周期函数，项目刚开始，我们先从简单的开始，只用到了 <code class="highlighter-rouge">onLaunch</code> 生命周期函数。当小程序初始化完成时，会触发  onLaunch（全局只触发一次）。<code class="highlighter-rouge">globalData</code> 可以用来存放小程序的全局数据，我们可以在页面中通过 <code class="highlighter-rouge">getApp()</code> 方法获取到小程序的实例，通过小程序实例就可以访问到这个全局对象，后面会详细讲解。  <br />
-<br /></p>
+<p><code class="highlighter-rouge">app.js</code> 包含了小程序的一些生命周期函数，项目刚开始，我们先从简单的开始，只用到了 <code class="highlighter-rouge">onLaunch</code> 生命周期函数。当小程序初始化完成时，会触发  onLaunch（全局只触发一次）。<code class="highlighter-rouge">globalData</code> 可以用来存放小程序的全局数据，我们可以在页面中通过 <code class="highlighter-rouge">getApp()</code> 方法获取到小程序的实例，通过小程序实例就可以访问到这个全局对象，后面会详细讲解。</p>
+
+<p><br /></p>
 
 <ul>
   <li>app.json</li>
@@ -133,7 +145,10 @@
 <h3 id="step-2-">Step 2. 增加页面</h3>
 <p>接下来我们要为小程序增加页面了，小程序的页面存放在 <code class="highlighter-rouge">pages</code> 文件夹下面。我们继续完善目录结构</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>├── pages/
+<div class="highlighter-rouge"><pre class="highlight"><code>├── lib/
+├── styles/ 
+│     ├── base.wxss 
+├── pages/
 │     ├── detail/ 
 │     ├── index/
 ├── app.js
@@ -156,7 +171,10 @@
 
 <p>继续完善文件目录</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>├── pages/
+<div class="highlighter-rouge"><pre class="highlight"><code>├── lib/
+├── styles/ 
+│     ├── base.wxss 
+├── pages/
 │     ├── detail/
 │     │     ├── detail.js  
 │     │     ├── detail.json        
@@ -207,6 +225,7 @@
 <span class="p">})</span>
 </code></pre>
 </div>
+
 <p><br /></p>
 
 <p><code class="highlighter-rouge">Page()</code> 函数用来注册一个页面。接受一个 <code class="highlighter-rouge">object</code> 参数，其指定页面的初始数据、生命周期函数、事件处理函数等。</p>
@@ -222,6 +241,7 @@
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w">
 </span></code></pre>
 </div>
+
 <p><br /></p>
 
 <ul>
@@ -233,6 +253,7 @@
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;view</span> <span class="na">class=</span><span class="s">"home"</span><span class="nt">&gt;</span> this is home page <span class="nt">&lt;/view&gt;</span>
 </code></pre>
 </div>
+
 <p><br /></p>
 
 <ul>
@@ -247,6 +268,7 @@
 <span class="p">}</span>
 </code></pre>
 </div>
+
 <p><br /></p>
 
 <p>同样的 <code class="highlighter-rouge">detail</code> 页面也会拥有类似的结构和代码。</p>
@@ -259,6 +281,7 @@
  </span><span class="p">]</span><span class="w">
 </span></code></pre>
 </div>
+
 <p><br /></p>
 
 <p><code class="highlighter-rouge">pages</code> 就是小程序的路由配置，这里可以看到，小程序拥有两个路由，一个首页，一个详情页面。</p>
@@ -269,6 +292,8 @@
 <p>上面介绍了小程序的必要的项目结构，其实在实际的项目中，为了开发方便，我们一般还会增加一些额外的目录，比如：</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>├── lib/
+├── styles/ 
+│     ├── base.wxss 
 ├── pages/
 │     ├── detail/
 │     │     ├── detail.js  
@@ -280,16 +305,15 @@
 │           ├── index.json  
 │           ├── index.wxml      
 │           ├── index.wxss  
-├── styles/ 
-│     ├── base.wxss 
 ├── app.js
 ├── app.json
 ├── app.wxss
 </code></pre>
 </div>
+
 <p><br /></p>
 
-<p><code class="highlighter-rouge">lib</code> 文件夹和 <code class="highlighter-rouge">styles</code> 文件夹  文件夹不是小程序的必要配置，前者用来存放项目中用到的其他库，后者可以存放一些基础样式文件。当然，你也可以根据自己的需要来增加一些别的文件夹来便利开发。</p>
+<p><code class="highlighter-rouge">lib</code> 文件夹和 <code class="highlighter-rouge">styles</code> 文件夹。文件夹不是小程序的必要配置，前者用来存放项目中用到的其他库，后者可以存放一些基础样式文件。当然，你也可以根据自己的需要来增加一些别的文件夹来便利开发。</p>
 
 <p>这里我们放置了一些文件，lib 中放置了实现 <code class="highlighter-rouge">Promise</code> 的库和解析 <code class="highlighter-rouge">html</code> 为小程序 <code class="highlighter-rouge">WXML</code> 的库。styles 中放置了公用的重置样式。</p>
 
@@ -297,7 +321,7 @@
 
 <p>下一节中，我们讲一下这个实战项目中用到的一些公用方法，比如打印日志功能、网络请求环境等</p>
 
-<p><a href="./">返回大纲</a></p>
+<p><a href="/">返回大纲</a></p>
 
 <p><a href="./ch1-5">上一篇：发布流程</a></p>
 
@@ -345,7 +369,7 @@
       </div>
 
       <div class="footer-col footer-col-3">
-        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+        <p>iKcamp由沪江Web前端团队中热爱原创和翻译的小伙伴发起，成立于2016年7月，"iK"代表布兰登·艾克（JavaScript之父）。 追随JavaScript这门语言所秉持的精神，崇尚开放和自由的我们一同工作、分享、创作，等候更多有趣跳动的灵魂。
 </p>
       </div>
     </div>
